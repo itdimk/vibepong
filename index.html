@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101611">
+    <meta name="description" content="Two balls. Twice the trouble. Play colorful, two-ball Pong against the computer or a friend.">
+    <title>Double Play — Two-ball Pong</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23101611'/%3E%3Ccircle cx='24' cy='24' r='13' fill='%235a96ff'/%3E%3Ccircle cx='40' cy='40' r='13' fill='%23ff616d'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="styles.css">
+    <script src="engine.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="./" aria-label="Double Play home"><span class="brand-mark" aria-hidden="true"><i></i><i></i></span> DOUBLE PLAY<span class="brand-period">®</span></a>
+        <span class="edition">THE TWO-BALL PONG CLUB</span>
+        <button id="sound-toggle" class="text-button" aria-pressed="false"><span id="sound-icon" aria-hidden="true">♪</span> SOUND <span id="sound-label">OFF</span></button>
+      </header>
+
+      <main>
+        <section class="intro" aria-labelledby="page-title">
+          <div>
+            <p class="eyebrow"><span class="tiny-cross" aria-hidden="true">✳</span> A CLASSIC, WITH A TWIST</p>
+            <h1 id="page-title">Twice the ball.<br>Double the <span>trouble.</span></h1>
+          </div>
+          <div class="intro-note"><span class="mini-balls" aria-hidden="true"><i></i><i></i></span><p>One red. One blue. Both in play.<br> Hit a ball. Steal its color. Keep up.</p></div>
+        </section>
+
+        <div class="game-layout">
+          <section class="arena" aria-label="Pong game">
+            <div class="scoreboard">
+              <div class="player player-left"><span id="left-swatch" class="paddle-swatch"></span><div><span id="left-name" class="player-name">YOU</span><span class="player-detail" id="left-detail">LEFT COURT</span></div><strong id="left-score">00</strong></div>
+              <div class="match-label"><span id="match-state">READY TO RALLY</span><span>FIRST TO <b>11</b></span></div>
+              <div class="player player-right"><strong id="right-score">00</strong><div><span id="right-name" class="player-name">COMPUTER</span><span class="player-detail" id="right-detail">RIGHT COURT</span></div><span id="right-swatch" class="paddle-swatch"></span></div>
+            </div>
+
+            <div class="court-wrap" id="court-wrap">
+              <canvas id="court" width="1000" height="560" tabindex="0" aria-label="Two-ball Pong court. Move the left paddle with W and S, arrow keys, or the mouse. Press Space to start or pause. In two-player mode, use arrow keys for the right paddle."></canvas>
+              <div class="court-corner top-left" aria-hidden="true"></div><div class="court-corner top-right" aria-hidden="true"></div><div class="court-corner bottom-left" aria-hidden="true"></div><div class="court-corner bottom-right" aria-hidden="true"></div>
+              <div id="game-overlay" class="game-overlay">
+                <div class="overlay-card">
+                  <span class="overlay-eyebrow" id="overlay-eyebrow">NOT YOUR AVERAGE PONG</span>
+                  <h2 id="overlay-title">One paddle.<br>Two problems.</h2>
+                  <p id="overlay-description">Keep both balls in play.<br>Your paddle wears the color of your last hit.</p>
+                  <button id="play-button" class="primary-button"><span id="play-label">LET’S PLAY</span><span aria-hidden="true">↗</span></button>
+                  <span class="overlay-hint" id="overlay-hint">or press <kbd>SPACE</kbd> to start</span>
+                </div>
+              </div>
+              <span class="court-watermark" aria-hidden="true">DP / COURT 01</span>
+            </div>
+
+            <div class="court-toolbar"><div class="live-indicator"><span id="status-dot"></span><span id="status-label">THE COURT IS YOURS</span></div><div class="toolbar-actions"><button id="pause-button" class="text-button" disabled>Ⅱ PAUSE</button><span class="toolbar-divider"></span><button id="restart-button" class="text-button" aria-label="Reset the match">↻ RESET</button></div></div>
+          </section>
+
+          <aside class="settings-panel" aria-label="Game settings and rules">
+            <div class="panel-heading"><h2>Make it a match.</h2><span aria-hidden="true">↙</span></div>
+            <fieldset class="setting-group"><legend>01 / THE COMPANY</legend><div class="segmented" id="mode-options"><button class="selected" data-mode="solo" aria-pressed="true">Solo vs CPU</button><button data-mode="duo" aria-pressed="false">2 players</button></div></fieldset>
+            <fieldset class="setting-group"><legend>02 / THE PACE</legend><div class="segmented pace-options" id="pace-options"><button data-pace="chill" aria-pressed="false">Chill</button><button class="selected" data-pace="arcade" aria-pressed="true">Arcade</button><button data-pace="turbo" aria-pressed="false">Turbo</button></div><p id="pace-description" class="setting-note">The sweet spot. A little chaos, a lot of fun.</p></fieldset>
+            <div class="color-rule"><span class="eyebrow">THE COLOR RULE</span><div class="color-demo"><span class="demo-ball blue-ball"></span><span class="demo-trail blue-trail"></span><span class="demo-arrow">→</span><span class="demo-paddle blue-paddle"></span><span class="demo-divider">/</span><span class="demo-ball red-ball"></span><span class="demo-trail red-trail"></span><span class="demo-arrow">→</span><span class="demo-paddle red-paddle"></span></div><p>Blue ball, blue paddle.<br>Red ball, red paddle.<br><strong>Every hit changes your colors.</strong></p></div>
+            <div class="hit-tally"><span class="eyebrow">PADDLE HITS</span><div><span><i class="blue-dot"></i> BLUE <strong id="blue-hits">0</strong></span><span><i class="red-dot"></i> RED <strong id="red-hits">0</strong></span></div></div>
+            <p class="settings-footnote">Change the setup to start a fresh match.</p>
+          </aside>
+        </div>
+
+        <section class="controls-strip" aria-label="How to play"><div class="control-lead"><span aria-hidden="true">⌘</span><strong>Get a grip.</strong></div><div class="control-tip"><span class="control-title" id="movement-title">MOVE YOUR PADDLE</span><span id="movement-keys"><kbd>W</kbd><kbd>S</kbd><span class="or">or</span><kbd>↑</kbd><kbd>↓</kbd><span class="or">or mouse / touch</span></span></div><div class="control-tip" id="secondary-controls"><span class="control-title">TAKE A BREATHER</span><span><kbd>SPACE</kbd><span class="or">to pause / resume</span></span></div><div class="control-tip goal-tip"><span class="control-title">MAKE IT COUNT</span><span>Each ball scores <strong>1 point.</strong></span></div></section>
+      </main>
+      <footer><span>OLD-SCHOOL GAME. NEW-SCHOOL CHAOS.</span><span>KEEP YOUR EYE ON THE BALL<span class="footer-edit">S</span><span class="footer-dot">●</span></span></footer>
+    </div>
+    <p id="announcer" class="sr-only" aria-live="polite" aria-atomic="true"></p>
+  </body>
+</html>
